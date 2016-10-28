@@ -51,12 +51,22 @@ public class Formatting {
 		return blankSpaces;
 	}
 	
-	public static String addingSpaces(String message, int times){
+	public static String addingBlankSpaces(String message){
 		StringBuilder finalString = new StringBuilder(message);
 		
-		for (int i = 0; i < times; i++){
-			finalString.append(" 00100000");
+		if (finalString.length()%4 == 0){
+			// Nothing to do
+		} else {
+			while(!(finalString.length()%4 == 0)){
+				finalString.append(" ");
+			}
 		}
+		
+		//StringBuilder finalString = new StringBuilder(message);
+		
+		//for (int i = 0; i < times; i++){
+			//finalString.append(" 00100000");
+		//}
 		
 		return finalString.toString();
 	}

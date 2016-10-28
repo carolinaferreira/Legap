@@ -1,5 +1,8 @@
 package main;
 
+import java.math.BigInteger;
+import javax.xml.bind.DatatypeConverter;
+import org.json.JSONObject;
 import comunnication.Communication;
 import conversions.Conversions;
 import conversions.Formatting;
@@ -10,9 +13,12 @@ public class Main {
 		final int byte5 = 5;
 		final int byte4 = 4;
 		
-		//String messageString = Communication.sendGet();
-		//System.out.println("\nmessage = " + messageString);
-		String messageString = "xlactz3Ja8Z/qep6niE=";
+		JSONObject object = Communication.sendGet();
+		String messageString = object.getString("value");
+		
+		//String messageString = "xlactz3Ja8Z/qep6niE=";
+		
+		System.out.println("\nmessage string = " + messageString);
 		
 		String hexadecimalString = Conversions.base64ToHex(messageString);
 		System.out.println("\nhexa = " + hexadecimalString);
@@ -43,26 +49,15 @@ public class Main {
 		
 		String firstMessage =  Conversions.binaryToText(binary8String);
 		System.out.println("\nmessage = " + firstMessage);
-		
-		int firstMessageBlankSpaces = Formatting.countBlankSpaces(firstMessage);
-		System.out.println("\nblank spaces = " + firstMessageBlankSpaces);
-		
+		firstMessage = firstMessage.trim();
+			
 		String invertedString = Conversions.reverse(firstMessage);
 		System.out.println("\ninverted message = " + invertedString);
 		
-		int invertedStringBlankSpaces = Formatting.countBlankSpaces(invertedString);
-		System.out.println("\nblank spaces = " + invertedStringBlankSpaces);
-		
-		String invertedStringWihtoutSpaces = new String();
-		
-		if (firstMessageBlankSpaces == invertedStringBlankSpaces){
-			invertedStringWihtoutSpaces = Formatting.removeBlankSpaces(invertedString);	
-		} else {
-			// Nothing to do
-		}
-		System.out.println("\ninverted message = " + invertedStringWihtoutSpaces);
-		
-		String invertedToBinary = Conversions.invertedToBinary(invertedStringWihtoutSpaces);
+		String invertedStringWithBlankSpaces = Formatting.addingBlankSpaces(invertedString);
+		System.out.println("\ninverted message with blank spaces = " + invertedStringWithBlankSpaces);
+			
+		String invertedToBinary = Conversions.invertedToBinary(invertedStringWithBlankSpaces);
 		System.out.println("\ninverted binary = " + invertedToBinary);
 		
 		String invertedStringBinaryWithoutSpaces = Formatting.removeBlankSpaces(invertedToBinary);
@@ -71,10 +66,7 @@ public class Main {
 		String invertedStringBinary8 = Formatting.insertCharacter(byte8, invertedStringBinaryWithoutSpaces, ' ');
 		System.out.println("\ninverted formated 8 = " + invertedStringBinary8);
 		
-		String invertedWithBinaryBlankSpaces = Formatting.addingSpaces(invertedStringBinary8, invertedStringBlankSpaces);
-		System.out.println("\ninverted binary with spaces at the end = " + invertedWithBinaryBlankSpaces);
-		
-		String invertedWithouSpaces = Formatting.removeBlankSpaces(invertedWithBinaryBlankSpaces);
+		String invertedWithouSpaces = Formatting.removeBlankSpaces(invertedStringBinary8);
 		System.out.println("\ninverted without spaces = " + invertedWithouSpaces);
 		
 		String binary4InvertedMessage = Formatting.insertCharacter(byte4, invertedWithouSpaces, ' ');
@@ -92,12 +84,16 @@ public class Main {
 		String binary8StringFinal = Formatting.insertCharacter(byte8, binary8InvertedWithGroups, ' ');
 		System.out.println("\nfinal binary 8 = " + binary8StringFinal);
 		
-		// ERROR
-		String invertedMessage = Conversions.binaryToText(binary8StringFinal);
-		System.out.println("\ninverted message as text = " + invertedMessage);
+		String binary8StringFinalWithoutSpaces =  Formatting.removeBlankSpaces(binary8StringFinal);
 		
-		byte[] invertedBinary64 = Conversions.textToBase64(invertedMessage);
-		System.out.println(new String(invertedBinary64));	
+		String hexadecimal = new BigInteger(binary8StringFinalWithoutSpaces, 2).toString(16);
+		System.out.println("\nhexa test = " + hexadecimal);
+		
+		String base64 = DatatypeConverter.printBase64Binary(DatatypeConverter.parseHexBinary(hexadecimal));
+		System.out.println("\nbase64 tes = " + base64);
+		
+		object.put("value", base64);
+		
+		Communication.sendPost(object);
 	}
-
 }
