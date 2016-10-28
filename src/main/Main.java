@@ -15,25 +15,21 @@ public class Main {
 		
 		JSONObject object = Communication.sendGet();
 		String messageString = object.getString("value");
-		
-		//String messageString = "xlactz3Ja8Z/qep6niE=";
-		
+			
 		System.out.println("\nmessage string = " + messageString);
 		
 		String hexadecimalString = Conversions.base64ToHex(messageString);
-		System.out.println("\nhexa = " + hexadecimalString);
+		System.out.println("\nhexadecimal = " + hexadecimalString);
 		
 		String binaryString = Conversions.hexToBin(hexadecimalString) ;
-		System.out.println("\nbinary = " + binaryString);
 		
 		String binaryFormated = Formatting.insertCharacter(byte8, binaryString, ' ');
-		System.out.println("\nbinary  formated = " + binaryFormated);
+		System.out.println("\nbinary formated = " + binaryFormated);
 		
 		String binaryStringWithoutGroups = Formatting.removeGroups(binaryFormated);
 		System.out.println("\nbinary without groups = " + binaryStringWithoutGroups);
 		
 		String binaryStringWithoutSpaces = Formatting.removeBlankSpaces(binaryStringWithoutGroups);
-		System.out.println("\nbinary without blank spaces = " + binaryStringWithoutSpaces);
 		
 		String binary5String = Formatting.insertCharacter(byte5, binaryStringWithoutSpaces, ' ');
 		System.out.println("\nbinary 5 = " + binary5String);
@@ -42,7 +38,6 @@ public class Main {
 		System.out.println("\nbinary decoded = " + binary5StringDecoded);
 		
 		String binary8StringWithoutSpaces =  Formatting.removeBlankSpaces(binary5StringDecoded);
-		System.out.println("\nbinary 8 = " + binary8StringWithoutSpaces);
 		
 		String binary8String = Formatting.insertCharacter(byte8, binary8StringWithoutSpaces, ' ');
 		System.out.println("\nbinary  8  formated = " + binary8String);
@@ -55,19 +50,16 @@ public class Main {
 		System.out.println("\ninverted message = " + invertedString);
 		
 		String invertedStringWithBlankSpaces = Formatting.addingBlankSpaces(invertedString);
-		System.out.println("\ninverted message with blank spaces = " + invertedStringWithBlankSpaces);
 			
 		String invertedToBinary = Conversions.invertedToBinary(invertedStringWithBlankSpaces);
 		System.out.println("\ninverted binary = " + invertedToBinary);
 		
 		String invertedStringBinaryWithoutSpaces = Formatting.removeBlankSpaces(invertedToBinary);
-		System.out.println("\ninverted binary wihtout spaces = " + invertedStringBinaryWithoutSpaces);
 		
 		String invertedStringBinary8 = Formatting.insertCharacter(byte8, invertedStringBinaryWithoutSpaces, ' ');
 		System.out.println("\ninverted formated 8 = " + invertedStringBinary8);
 		
 		String invertedWithouSpaces = Formatting.removeBlankSpaces(invertedStringBinary8);
-		System.out.println("\ninverted without spaces = " + invertedWithouSpaces);
 		
 		String binary4InvertedMessage = Formatting.insertCharacter(byte4, invertedWithouSpaces, ' ');
 		System.out.println("\ninverted binary 4 = " + binary4InvertedMessage);
@@ -79,18 +71,17 @@ public class Main {
 		System.out.println("\nbinary 8 inverted message = " + binary8InvertedMessage);
 		
 		String binary8InvertedWithGroups = Formatting.addingGroups(binary8InvertedMessage);
-		System.out.println("\nbinary 8 with groups = " + binary8InvertedWithGroups);
 		
 		String binary8StringFinal = Formatting.insertCharacter(byte8, binary8InvertedWithGroups, ' ');
-		System.out.println("\nfinal binary 8 = " + binary8StringFinal);
+		System.out.println("\nfinal binary 8 with groups = " + binary8StringFinal);
 		
 		String binary8StringFinalWithoutSpaces =  Formatting.removeBlankSpaces(binary8StringFinal);
 		
 		String hexadecimal = new BigInteger(binary8StringFinalWithoutSpaces, 2).toString(16);
-		System.out.println("\nhexa test = " + hexadecimal);
+		System.out.println("\nhexadecimal = " + hexadecimal);
 		
 		String base64 = DatatypeConverter.printBase64Binary(DatatypeConverter.parseHexBinary(hexadecimal));
-		System.out.println("\nbase64 tes = " + base64);
+		System.out.println("\nbase64 = " + base64);
 		
 		object.put("value", base64);
 		
