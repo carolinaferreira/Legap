@@ -62,12 +62,6 @@ public class Formatting {
 			}
 		}
 		
-		//StringBuilder finalString = new StringBuilder(message);
-		
-		//for (int i = 0; i < times; i++){
-			//finalString.append(" 00100000");
-		//}
-		
 		return finalString.toString();
 	}
 	
@@ -76,12 +70,6 @@ public class Formatting {
 		String[] array = message.split(" ");
 		
 		StringBuilder finalString =  new StringBuilder();
-		
-//		for (i = 0; i < array.length; i ++){
-//			System.out.println("\nXXX: " + array[i]);
-//		}
-		
-//		System.out.println("\nTAMANHO = " + array.length);
 		
 		for (i = 0; i < array.length; i+=5){
 			//start group
@@ -103,5 +91,4 @@ public class Formatting {
 		}
 		return finalString.toString();
 	}
-
 }

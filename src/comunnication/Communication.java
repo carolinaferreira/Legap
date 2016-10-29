@@ -1,13 +1,10 @@
 package comunnication;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
-import javax.net.ssl.HttpsURLConnection;
 
 import org.json.JSONObject;
 
@@ -15,13 +12,12 @@ public class Communication {
 	private final static String USER_AGENT = "Mozilla/5.0";
 	
 	public static void main(String[] args) throws Exception {
-		Communication http = new Communication();
 		System.out.println("Testing 1 -  Send address GET request");
 		Communication.sendGet();
 		
 	}
 	
-	// Address GET request
+	// GET request
 	public static JSONObject sendGet() throws Exception{
 		String url = "http://interntest.herokuapp.com/get?email=carol.mf14@gmail.com";
 		
@@ -49,17 +45,13 @@ public class Communication {
 		
 		in.close();
 		       
-		//CONVERTIONS
 		JSONObject message = new JSONObject(response.toString());
-
-		// get message on base64 
-		String messageValue = new String(message.getString("value"));
 		
 		return message;
 
 	}
 	
-	// HTTP POST request
+	// POST request
 	public static void sendPost(JSONObject object) throws Exception {
 		String url = "https://interntest.herokuapp.com/post";
 		URL obj = new URL(url);
@@ -75,7 +67,7 @@ public class Communication {
 		wr.write(object.toString());
 		wr.flush();
 
-		//display what returns the POST request
+		//show what returns the POST request
 		
 		int responseCode = connection.getResponseCode();
 		

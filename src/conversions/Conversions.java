@@ -39,7 +39,6 @@ public class Conversions {
 	            }
 	            idx++;
 	        }
-	    //    System.out.println(sum);//debug
 	        finalString.append(Character.toChars(sum));
 	    }
 	    return finalString.toString();
